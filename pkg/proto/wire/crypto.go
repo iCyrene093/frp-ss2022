@@ -28,6 +28,7 @@ import (
 
 const (
 	AEADAlgorithmAES256GCM         = "aes-256-gcm"
+	AEADAlgorithmSS2022Blake3AES128GCM = "2022-blake3-aes-128-gcm"
 	AEADAlgorithmXChaCha20Poly1305 = "xchacha20-poly1305"
 
 	CryptoRandomSize = 32
@@ -36,6 +37,7 @@ const (
 )
 
 var supportedAEADAlgorithms = []string{
+	AEADAlgorithmSS2022Blake3AES128GCM,
 	AEADAlgorithmAES256GCM,
 	AEADAlgorithmXChaCha20Poly1305,
 }
@@ -148,9 +150,9 @@ func writeCryptoTranscriptPart(h hash.Hash, label string, payload []byte) {
 
 func PreferredAEADAlgorithms() []string {
 	if hasFastAESGCM() {
-		return []string{AEADAlgorithmAES256GCM, AEADAlgorithmXChaCha20Poly1305}
+		return []string{AEADAlgorithmSS2022Blake3AES128GCM, AEADAlgorithmAES256GCM, AEADAlgorithmXChaCha20Poly1305}
 	}
-	return []string{AEADAlgorithmXChaCha20Poly1305, AEADAlgorithmAES256GCM}
+	return []string{AEADAlgorithmSS2022Blake3AES128GCM, AEADAlgorithmXChaCha20Poly1305, AEADAlgorithmAES256GCM}
 }
 
 func SelectAEADAlgorithm(clientAlgorithms []string) (string, bool) {

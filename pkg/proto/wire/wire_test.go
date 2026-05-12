@@ -116,6 +116,7 @@ func TestValidateClientHello(t *testing.T) {
 	require.NoError(t, ValidateClientHello(hello))
 	require.Len(t, hello.Capabilities.Crypto.ClientRandom, CryptoRandomSize)
 	require.ElementsMatch(t, []string{
+		AEADAlgorithmSS2022Blake3AES128GCM,
 		AEADAlgorithmAES256GCM,
 		AEADAlgorithmXChaCha20Poly1305,
 	}, hello.Capabilities.Crypto.Algorithms)
@@ -136,6 +137,7 @@ func TestValidateClientHelloRejectsInvalidCrypto(t *testing.T) {
 
 func TestPreferredAEADAlgorithms(t *testing.T) {
 	require.ElementsMatch(t, []string{
+		AEADAlgorithmSS2022Blake3AES128GCM,
 		AEADAlgorithmAES256GCM,
 		AEADAlgorithmXChaCha20Poly1305,
 	}, PreferredAEADAlgorithms())

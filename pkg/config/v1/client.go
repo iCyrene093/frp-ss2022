@@ -100,6 +100,7 @@ func (c *ClientCommonConfig) Complete() error {
 }
 
 type ClientTransportConfig struct {
+	Shadowsocks ShadowsocksConfig `json:"shadowsocks,omitempty"`
 	// Protocol specifies the protocol to use when interacting with the server.
 	// Valid values are "tcp", "kcp", "quic", "websocket" and "wss". By default, this value
 	// is "tcp".
@@ -163,6 +164,7 @@ func (c *ClientTransportConfig) Complete() {
 	}
 	c.QUIC.Complete()
 	c.TLS.Complete()
+	c.Shadowsocks.Complete()
 }
 
 type TLSClientConfig struct {

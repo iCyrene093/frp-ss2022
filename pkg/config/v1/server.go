@@ -155,6 +155,7 @@ type AuthOIDCServerConfig struct {
 }
 
 type ServerTransportConfig struct {
+	Shadowsocks ShadowsocksConfig `json:"shadowsocks,omitempty"`
 	// TCPMux toggles TCP stream multiplexing. This allows multiple requests
 	// from a client to share a single TCP connection. By default, this value
 	// is true.
@@ -191,6 +192,7 @@ func (c *ServerTransportConfig) Complete() {
 		c.HeartbeatTimeout = util.EmptyOr(c.HeartbeatTimeout, 90)
 	}
 	c.QUIC.Complete()
+	c.Shadowsocks.Complete()
 	if c.TLS.TrustedCaFile != "" {
 		c.TLS.Force = true
 	}
