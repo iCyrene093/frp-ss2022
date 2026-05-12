@@ -142,6 +142,10 @@ func NewService(cfg *v1.ServerConfig) (*Service, error) {
 		return nil, err
 	}
 
+	if cfg.Transport.Shadowsocks.Enable && cfg.Transport.Shadowsocks.Password != "" {
+		authRuntime.SetEncryptionKey([]byte(cfg.Transport.Shadowsocks.Password))
+	}
+
 	var webServer *httppkg.Server
 	if cfg.WebServer.Port > 0 {
 		ws, err := httppkg.NewServer(cfg.WebServer)

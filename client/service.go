@@ -166,6 +166,10 @@ func NewService(options ServiceOptions) (*Service, error) {
 		return nil, err
 	}
 
+	if options.Common.Transport.Shadowsocks.Enable && options.Common.Transport.Shadowsocks.Password != "" {
+		authRuntime.SetEncryptionKey([]byte(options.Common.Transport.Shadowsocks.Password))
+	}
+
 	if options.ConfigSourceAggregator == nil {
 		return nil, fmt.Errorf("config source aggregator is required")
 	}

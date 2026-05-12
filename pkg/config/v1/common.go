@@ -144,3 +144,11 @@ type HTTPHeader struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
+
+
+type ShadowsocksConfig struct {
+	Enable bool `json:"enable,omitempty"`
+	Password string `json:"password,omitempty"`
+}
+
+func (c *ShadowsocksConfig) Complete() {}

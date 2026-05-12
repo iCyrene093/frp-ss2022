@@ -33,6 +33,10 @@ type ClientAuth struct {
 	key    []byte
 }
 
+func (a *ClientAuth) SetEncryptionKey(key []byte) {
+	a.key = key
+}
+
 func (a *ClientAuth) EncryptionKey() []byte {
 	return a.key
 }
@@ -89,6 +93,10 @@ type Verifier interface {
 type ServerAuth struct {
 	Verifier Verifier
 	key      []byte
+}
+
+func (a *ServerAuth) SetEncryptionKey(key []byte) {
+	a.key = key
 }
 
 func (a *ServerAuth) EncryptionKey() []byte {
